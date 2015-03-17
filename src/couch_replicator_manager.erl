@@ -814,10 +814,7 @@ Body)),
 strip_credentials(undefined) ->
     undefined;
 strip_credentials(Url) when is_binary(Url) ->
-    re:replace(Url,
-        "http(s)?://(?:[^:]+):[^@]+@(.*)$",
-        "http\\1://\\2",
-        [{return, binary}]);
+    couch_util:url_strip_credentials(Url);
 strip_credentials({Props}) ->
     {lists:keydelete(<<"oauth">>, 1, Props)}.
 
